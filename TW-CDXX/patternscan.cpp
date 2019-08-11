@@ -38,9 +38,9 @@ void* PatternScan::patternScanEx(uintptr_t begin, uintptr_t end, char* pattern, 
 		char buffer[4096];
 
 		DWORD oldprotect;
-		VirtualProtectEx(m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldprotect);
-		ReadProcessMemory(m_pMemory->getProcessHandle(), (void*)currentChunk, &buffer, sizeof(buffer), &bytesRead);
-		VirtualProtectEx(m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), oldprotect, &oldprotect);
+		VirtualProtectEx(*m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldprotect);
+		ReadProcessMemory(*m_pMemory->getProcessHandle(), (void*)currentChunk, &buffer, sizeof(buffer), &bytesRead);
+		VirtualProtectEx(*m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), oldprotect, &oldprotect);
 
 		if (bytesRead == 0)
 		{
