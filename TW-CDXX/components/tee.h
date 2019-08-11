@@ -1,6 +1,11 @@
 #pragma once
 #include "../memory.h"
 
+enum
+{
+	INPUT_STATE_MASK = 0x3f
+};
+
 class Tee
 {
 private:
@@ -33,7 +38,13 @@ private:
 		int m_DirLeft;
 		int m_DirRight;
 	};
-	//DWORD* test = (DWORD*)pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", (char*)"xxxxxx?x????????????xxxxxxxx");
+
+	InputData m_InputData;
+	InputAddresses m_InputAddresses;
+
+	void resetInput();
+	void setAddresses();
+
 	Memory* m_pMemory;
 public:
 	Tee(Memory* pMem);
