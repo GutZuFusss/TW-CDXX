@@ -50,9 +50,29 @@ void Tee::setTarget(int x, int y)
 	m_pController->getMemory()->patchEx(m_InputAddresses.m_TargetY, &m_InputData.m_TargetY, sizeof(int));
 }
 
+void Tee::jump()
+{
+	m_InputData.m_Jump = 1;
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_Jump, &m_InputData.m_Jump, sizeof(int));
+	m_InputData.m_Jump = 0;
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_Jump, &m_InputData.m_Jump, sizeof(int));
+}
+
 void Tee::fire()
 {
 	m_InputData.m_Fire++;
 	m_InputData.m_Fire &= INPUT_STATE_MASK;
 	m_pController->getMemory()->patchEx(m_InputAddresses.m_Fire, &m_InputData.m_Fire, sizeof(int));
+}
+
+void Tee::fireHook()
+{
+	m_InputData.m_Hook = 1;
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_Hook, &m_InputData.m_Hook, sizeof(int));
+}
+
+void Tee::releaseHook()
+{
+	m_InputData.m_Hook = 0;
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_Hook, &m_InputData.m_Hook, sizeof(int));
 }

@@ -51,5 +51,8 @@ public:
 	Tee(Controller* pController);
 	
 	void setTarget(int x, int y);
+	void jump();
 	void fire();
+	void fireHook();
+	void releaseHook();
 };
