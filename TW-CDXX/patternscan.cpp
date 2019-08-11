@@ -1,6 +1,11 @@
 #include "patternscan.h"
 
-void* patternScan(char* base, size_t size, char* pattern, char* mask)
+PatternScan::PatternScan(Memory* mem)
+{
+	m_pMemory = mem;
+}
+
+void* PatternScan::patternScan(char* base, size_t size, char* pattern, char* mask)
 {
 	size_t patternLength = strlen(mask);
 
@@ -23,7 +28,7 @@ void* patternScan(char* base, size_t size, char* pattern, char* mask)
 	return nullptr;
 }
 
-void* patternScanEx(HANDLE hProcess, uintptr_t begin, uintptr_t end, char* pattern, char* mask)
+void* PatternScan::patternScanEx(uintptr_t begin, uintptr_t end, char* pattern, char* mask)
 {
 	uintptr_t currentChunk = begin;
 	SIZE_T bytesRead;
@@ -33,9 +38,9 @@ void* patternScanEx(HANDLE hProcess, uintptr_t begin, uintptr_t end, char* patte
 		char buffer[4096];
 
 		DWORD oldprotect;
-		VirtualProtectEx(hProcess, (void*)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldprotect);
-		ReadProcessMemory(hProcess, (void*)currentChunk, &buffer, sizeof(buffer), &bytesRead);
-		VirtualProtectEx(hProcess, (void*)currentChunk, sizeof(buffer), oldprotect, &oldprotect);
+		VirtualProtectEx(m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldprotect);
+		ReadProcessMemory(m_pMemory->getProcessHandle(), (void*)currentChunk, &buffer, sizeof(buffer), &bytesRead);
+		VirtualProtectEx(m_pMemory->getProcessHandle(), (void*)currentChunk, sizeof(buffer), oldprotect, &oldprotect);
 
 		if (bytesRead == 0)
 		{
@@ -59,7 +64,7 @@ void* patternScanEx(HANDLE hProcess, uintptr_t begin, uintptr_t end, char* patte
 	return nullptr;
 }
 
-void* patternScanExModule(HANDLE hProcess, wchar_t* exeName, wchar_t* module, char* pattern, char* mask)
+void* PatternScan::patternScanExModule(wchar_t* exeName, wchar_t* module, char* pattern, char* mask)
 {
 	DWORD processID = getProcessID(exeName);
 	MODULEENTRY32 modEntry = getModuleEntry(processID, module);
@@ -71,5 +76,5 @@ void* patternScanExModule(HANDLE hProcess, wchar_t* exeName, wchar_t* module, ch
 
 	uintptr_t begin = (uintptr_t)modEntry.modBaseAddr;
 	uintptr_t end = begin + modEntry.modBaseSize;
-	return patternScanEx(hProcess, begin, end, pattern, mask);
+	return patternScanEx(m_pMemory->getProcessHandle(), begin, end, pattern, mask);
 }

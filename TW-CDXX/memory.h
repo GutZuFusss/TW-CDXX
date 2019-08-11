@@ -10,7 +10,7 @@ private:
 	MODULEENTRY32 getModuleEntry(DWORD dwProcID, wchar_t* moduleName);
 
 	//memory stuff
-	void nop(HANDLE hProcess, void* dest, unsigned int size);
+	void nop(void* dest, unsigned int size);
 	void patch(void* dst, void* src, unsigned int size);
 
 	HANDLE m_ProcessHandle;
@@ -18,6 +18,10 @@ private:
 
 public:
 	Memory(wchar_t* process, wchar_t* moduleName);
+
+	//process stuff
+	HANDLE* getProcessHandle() { return &m_ProcessHandle; };
+	MODULEENTRY32* getModuleEntry() { return &m_ModuleEntry; };
 
 	//memory stuff
 	void patchEx(void* dst, void* src, unsigned int size);
