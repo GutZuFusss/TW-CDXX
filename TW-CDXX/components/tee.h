@@ -49,4 +49,6 @@ private:
 	Controller* m_pController;
 public:
 	Tee(Controller* pController);
+	
+	void Fire();
 };
