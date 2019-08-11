@@ -66,15 +66,14 @@ void* PatternScan::patternScanEx(uintptr_t begin, uintptr_t end, char* pattern, 
 
 void* PatternScan::patternScanExModule(wchar_t* exeName, wchar_t* module, char* pattern, char* mask)
 {
-	DWORD processID = getProcessID(exeName);
-	MODULEENTRY32 modEntry = getModuleEntry(processID, module);
+	MODULEENTRY32* pModEntry = m_pMemory->getModuleEntry();
 
-	if (!modEntry.th32ModuleID)
+	if (!pModEntry->th32ModuleID)
 	{
 		return nullptr;
 	}
 
-	uintptr_t begin = (uintptr_t)modEntry.modBaseAddr;
-	uintptr_t end = begin + modEntry.modBaseSize;
-	return patternScanEx(m_pMemory->getProcessHandle(), begin, end, pattern, mask);
+	uintptr_t begin = (uintptr_t)pModEntry->modBaseAddr;
+	uintptr_t end = begin + pModEntry->modBaseSize;
+	return patternScanEx(begin, end, pattern, mask);
 }

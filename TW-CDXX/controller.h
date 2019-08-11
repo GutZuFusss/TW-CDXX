@@ -8,7 +8,7 @@ public:
 	Controller(wchar_t* process, wchar_t* moduleName)
 	{
 		m_pMemory = new Memory(process, moduleName);
-		m_pPatternScan = new PatternScan(getMemory());
+		m_pPatternScan = new PatternScan(m_pMemory);
 	};
 
 	Memory* getMemory() { return m_pMemory; };
