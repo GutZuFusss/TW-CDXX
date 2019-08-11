@@ -6,12 +6,15 @@ Tee::Tee(Controller* pController)
 
 	resetInput();
 	setAddresses();
+
+	while(1)
+		pController->getMemory()->patchEx(m_InputAddresses.m_TargetY, (char*)"\x01", 4);
 }
 
 void Tee::resetInput()
 {
 	m_InputData.m_TargetX = 1; // aiming to the exact center is not allowed
-	m_InputData.m_TargetX = 0;
+	m_InputData.m_TargetY = 0;
 	m_InputData.m_Jump = 0;
 	if((m_InputData.m_Fire & 1) != 0)
 		m_InputData.m_Fire++;
@@ -29,11 +32,11 @@ void Tee::setAddresses()
 {
 	DWORD* inputBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", (char*)"xxxxxx?x????????????xxxxxxxx");
 
-	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*10);
-	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*9);
-	m_InputAddresses.m_Jump = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*8);
+	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*25);
+	m_InputAddresses.m_TargetY = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*24);
+	m_InputAddresses.m_Jump = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*18);
 	m_InputAddresses.m_Fire = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*7);
-	m_InputAddresses.m_Hook = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*6);
+	m_InputAddresses.m_Hook = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*16);
 	m_InputAddresses.m_PlaceHolder1 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*5);
 	m_InputAddresses.m_PlaceHolder2 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*4);
 	m_InputAddresses.m_PlaceHolder3 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*3);
