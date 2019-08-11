@@ -1,6 +1,13 @@
 #include "memory.h"
 
-DWORD getProcessID(wchar_t* exeName)
+Memory::Memory(wchar_t* process, wchar_t* moduleName)
+{
+	DWORD processID = getProcessID(process);
+	m_ProcessHandle = OpenProcess(PROCESS_ALL_ACCESS, false, processID);
+	m_ModuleEntry = getModuleEntry(processID, moduleName);
+}
+
+DWORD Memory::getProcessID(wchar_t* exeName)
 {
 	PROCESSENTRY32 procEntry = { 0 };
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
@@ -28,7 +35,7 @@ DWORD getProcessID(wchar_t* exeName)
 	return 0;
 }
 
-MODULEENTRY32 getModuleEntry(DWORD dwProcID, wchar_t* moduleName)
+MODULEENTRY32 Memory::getModuleEntry(DWORD dwProcID, wchar_t* moduleName)
 {
 	MODULEENTRY32 modEntry = { 0 };
 
@@ -55,7 +62,7 @@ MODULEENTRY32 getModuleEntry(DWORD dwProcID, wchar_t* moduleName)
 	return modEntry;
 }
 
-void Patch(void* dst, void* src, unsigned int size)
+void Memory::patch(void* dst, void* src, unsigned int size)
 {
 	DWORD oldprotect;
 	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
@@ -63,15 +70,15 @@ void Patch(void* dst, void* src, unsigned int size)
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
 
-void PatchEx(HANDLE hProcess, void* dst, void* src, unsigned int size)
+void Memory::patchEx(void* dst, void* src, unsigned int size)
 {
 	DWORD oldprotect;
-	VirtualProtectEx(hProcess, dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-	WriteProcessMemory(hProcess, dst, src, size, NULL);
-	VirtualProtectEx(hProcess, dst, size, oldprotect, &oldprotect);
+	VirtualProtectEx(m_ProcessHandle, dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	WriteProcessMemory(m_ProcessHandle, dst, src, size, NULL);
+	VirtualProtectEx(m_ProcessHandle, dst, size, oldprotect, &oldprotect);
 }
 
-void Nop(HANDLE hProcess, void* dst, unsigned int size)
+void Memory::nop(void* dst, unsigned int size)
 {
 	DWORD oldprotect;
 	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
@@ -79,14 +86,14 @@ void Nop(HANDLE hProcess, void* dst, unsigned int size)
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
 
-void NopEx(HANDLE hProcess, void* dst, unsigned int size)
+void Memory::nopEx(void* dst, unsigned int size)
 {
 	byte* nopArray = new byte[size];
 	memset(nopArray, 0x90, size);
 
 	DWORD oldprotect;
-	VirtualProtectEx(hProcess, dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-	WriteProcessMemory(hProcess, dst, nopArray, size, NULL);
-	VirtualProtectEx(hProcess, dst, size, oldprotect, &oldprotect);
+	VirtualProtectEx(m_ProcessHandle, dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	WriteProcessMemory(m_ProcessHandle, dst, nopArray, size, NULL);
+	VirtualProtectEx(m_ProcessHandle, dst, size, oldprotect, &oldprotect);
 	delete[] nopArray;
 }
