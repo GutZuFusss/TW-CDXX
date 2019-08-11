@@ -8,6 +8,13 @@ Tee::Tee(Controller* pController)
 	setAddresses();
 }
 
+void Tee::tick()
+{
+	//update local tee's info (might move this to another function some day
+	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
+	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
+}
+
 void Tee::resetInput()
 {
 	m_InputData.m_TargetX = 1; // aiming to the exact center is not allowed

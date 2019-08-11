@@ -65,6 +65,8 @@ private:
 public:
 	Tee(Controller* pController);
 
+	void tick();
+
 	struct Position
 	{
 		int x;
