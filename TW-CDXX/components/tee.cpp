@@ -42,7 +42,15 @@ void Tee::setAddresses()
 	m_InputAddresses.m_DirRight = inputBaseAddr;
 }
 
-void Tee::Fire()
+void Tee::setTarget(int x, int y)
+{
+	m_InputData.m_TargetX = x;
+	m_InputData.m_TargetY = y;
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_TargetX, &m_InputData.m_TargetX, sizeof(int));
+	m_pController->getMemory()->patchEx(m_InputAddresses.m_TargetY, &m_InputData.m_TargetY, sizeof(int));
+}
+
+void Tee::fire()
 {
 	m_InputData.m_Fire++;
 	m_InputData.m_Fire &= INPUT_STATE_MASK;

@@ -50,5 +50,6 @@ private:
 public:
 	Tee(Controller* pController);
 	
-	void Fire();
+	void setTarget(int x, int y);
+	void fire();
 };
