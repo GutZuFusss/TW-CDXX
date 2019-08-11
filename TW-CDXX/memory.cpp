@@ -62,6 +62,16 @@ MODULEENTRY32 Memory::getModuleEntry(DWORD dwProcID, wchar_t* moduleName)
 	return modEntry;
 }
 
+void* Memory::readMemoryEx(void* src, unsigned int size)
+{
+	int buffer = 0;
+	DWORD oldprotect;
+	VirtualProtectEx(m_ProcessHandle, src, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	ReadProcessMemory(m_ProcessHandle, src, &buffer, size, NULL);
+	VirtualProtectEx(m_ProcessHandle, src, size, oldprotect, &oldprotect);
+	return (void*)buffer;
+}
+
 void Memory::patch(void* dst, void* src, unsigned int size)
 {
 	DWORD oldprotect;

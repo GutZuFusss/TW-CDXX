@@ -1,5 +1,7 @@
 #include "tee.h"
 
+#include <stdio.h> //REMOVE
+
 Tee::Tee(Controller* pController)
 {
 	m_pController = pController;
@@ -28,7 +30,6 @@ void Tee::resetInput()
 void Tee::setAddresses()
 {
 	DWORD* inputBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", (char*)"xxxxxx?x????????????xxxxxxxx");
-
 	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*25);
 	m_InputAddresses.m_TargetY = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*24);
 	m_InputAddresses.m_Jump = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*18);
@@ -40,6 +41,18 @@ void Tee::setAddresses()
 	m_InputAddresses.m_PlaceHolder4 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*2);
 	m_InputAddresses.m_DirLeft = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*1);
 	m_InputAddresses.m_DirRight = inputBaseAddr;
+
+	DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
+	m_PositionAddresses.m_X = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
+	m_PositionAddresses.m_Y = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);;
+
+	//REMOVE
+	while(1)
+	{
+		int x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
+		int y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
+		printf("X: %i        Y: %i\n", x, y);
+	}
 }
 
 void Tee::setTarget(int x, int y)
@@ -75,4 +88,29 @@ void Tee::releaseHook()
 {
 	m_InputData.m_Hook = 0;
 	m_pController->getMemory()->patchEx(m_InputAddresses.m_Hook, &m_InputData.m_Hook, sizeof(int));
+}
+
+void Tee::move(int dir)
+{
+	if(dir == WALK_LEFT)
+	{
+		m_InputData.m_DirLeft = 1;
+		m_InputData.m_DirRight = 0;
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirLeft, &m_InputData.m_DirLeft, sizeof(int));
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirRight, &m_InputData.m_DirRight, sizeof(int));
+	}
+	else if (dir == WALK_RIGHT)
+	{
+		m_InputData.m_DirLeft = 0;
+		m_InputData.m_DirRight = 1;
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirLeft, &m_InputData.m_DirLeft, sizeof(int));
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirRight, &m_InputData.m_DirRight, sizeof(int));
+	}
+	else if (dir == WALK_STAND)
+	{
+		m_InputData.m_DirLeft = 0;
+		m_InputData.m_DirRight = 0;
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirLeft, &m_InputData.m_DirLeft, sizeof(int));
+		m_pController->getMemory()->patchEx(m_InputAddresses.m_DirRight, &m_InputData.m_DirRight, sizeof(int));
+	}
 }

@@ -24,6 +24,7 @@ public:
 	MODULEENTRY32* getModuleEntry() { return &m_ModuleEntry; };
 
 	//memory stuff
+	void* readMemoryEx(void* src, unsigned int size);
 	void patchEx(void* dst, void* src, unsigned int size);
 	void nopEx(void* dst, unsigned int size);
 };

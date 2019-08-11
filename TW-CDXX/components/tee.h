@@ -7,6 +7,13 @@ enum
 	INPUT_STATE_MASK = 0x3f
 };
 
+enum
+{
+	WALK_LEFT = -1,
+	WALK_STAND,
+	WALK_RIGHT
+};
+
 class Tee
 {
 private:
@@ -40,8 +47,16 @@ private:
 		DWORD* m_DirRight;
 	};
 
+	struct PositionAddresses
+	{
+		DWORD* m_X;
+		DWORD* m_Y;
+	};
+
 	InputData m_InputData;
 	InputAddresses m_InputAddresses;
+
+	PositionAddresses m_PositionAddresses;
 
 	void resetInput();
 	void setAddresses();
@@ -49,10 +64,17 @@ private:
 	Controller* m_pController;
 public:
 	Tee(Controller* pController);
+
+	struct Position
+	{
+		int x;
+		int y;
+	} m_Pos;
 	
 	void setTarget(int x, int y);
 	void jump();
 	void fire();
 	void fireHook();
 	void releaseHook();
+	void move(int dir);
 };
