@@ -1,6 +1,6 @@
 #pragma once
+
 #include "../controller.h"
-#include "../memory.h"
 
 enum
 {
