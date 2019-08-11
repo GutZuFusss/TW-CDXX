@@ -1,8 +1,8 @@
 #include "tee.h"
 
-Tee::Tee(Memory* pMem)
+Tee::Tee(Controller* pController)
 {
-	m_pMemory = pMem;
+	m_pController = pController;
 
 	resetInput();
 	setAddresses();
@@ -27,5 +27,17 @@ void Tee::resetInput()
 
 void Tee::setAddresses()
 {
+	DWORD* inputBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", (char*)"xxxxxx?x????????????xxxxxxxx");
 
+	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*10);
+	m_InputAddresses.m_TargetX = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*9);
+	m_InputAddresses.m_Jump = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*8);
+	m_InputAddresses.m_Fire = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*7);
+	m_InputAddresses.m_Hook = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*6);
+	m_InputAddresses.m_PlaceHolder1 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*5);
+	m_InputAddresses.m_PlaceHolder2 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*4);
+	m_InputAddresses.m_PlaceHolder3 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*3);
+	m_InputAddresses.m_PlaceHolder4 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*2);
+	m_InputAddresses.m_DirLeft = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*1);
+	m_InputAddresses.m_DirRight = inputBaseAddr;
 }

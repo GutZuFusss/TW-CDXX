@@ -1,4 +1,5 @@
 #pragma once
+#include "../controller.h"
 #include "../memory.h"
 
 enum
@@ -26,17 +27,17 @@ private:
 
 	struct InputAddresses
 	{
-		int m_TargetX;
-		int m_TargetY;
-		int m_Jump;
-		int m_Fire;
-		int m_Hook;
-		int m_PlaceHolder1;
-		int m_PlaceHolder2;
-		int m_PlaceHolder3;
-		int m_PlaceHolder4;
-		int m_DirLeft;
-		int m_DirRight;
+		DWORD* m_TargetX;
+		DWORD* m_TargetY;
+		DWORD* m_Jump;
+		DWORD* m_Fire;
+		DWORD* m_Hook;
+		DWORD* m_PlaceHolder1;
+		DWORD* m_PlaceHolder2;
+		DWORD* m_PlaceHolder3;
+		DWORD* m_PlaceHolder4;
+		DWORD* m_DirLeft;
+		DWORD* m_DirRight;
 	};
 
 	InputData m_InputData;
@@ -45,7 +46,7 @@ private:
 	void resetInput();
 	void setAddresses();
 
-	Memory* m_pMemory;
+	Controller* m_pController;
 public:
-	Tee(Memory* pMem);
+	Tee(Controller* pController);
 };
