@@ -1,7 +1,5 @@
 #include "tee.h"
 
-#include <stdio.h> //REMOVE
-
 Tee::Tee(Controller* pController)
 {
 	m_pController = pController;
@@ -45,14 +43,6 @@ void Tee::setAddresses()
 	DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
 	m_PositionAddresses.m_X = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
 	m_PositionAddresses.m_Y = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);;
-
-	//REMOVE
-	while(1)
-	{
-		int x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
-		int y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
-		printf("X: %i        Y: %i\n", x, y);
-	}
 }
 
 void Tee::setTarget(int x, int y)
