@@ -64,7 +64,7 @@ void* PatternScan::patternScanEx(uintptr_t begin, uintptr_t end, char* pattern, 
 	return nullptr;
 }
 
-void* PatternScan::patternScanExModule(wchar_t* exeName, wchar_t* module, char* pattern, char* mask)
+void* PatternScan::patternScanExModule(char* pattern, char* mask)
 {
 	MODULEENTRY32* pModEntry = m_pMemory->getModuleEntry();
 

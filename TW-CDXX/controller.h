@@ -12,6 +12,7 @@ public:
 	};
 
 	Memory* getMemory() { return m_pMemory; };
+	PatternScan* getPatternScan() { return m_pPatternScan; };
 
 private:
 	Memory* m_pMemory;

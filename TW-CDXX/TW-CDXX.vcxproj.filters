@@ -24,12 +24,21 @@
     <ClCompile Include="patternscan.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="components\tee.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="patternscan.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="components\tee.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

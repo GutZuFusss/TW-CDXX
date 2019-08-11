@@ -1,20 +1,18 @@
 #include <Windows.h>
 #include "patternscan.h"
 #include "memory.h"
+#include "controller.h"
 
 int main()
 {
-	DWORD processID = getProcessID((wchar_t*)L"teeworlds.exe");
-	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, false, processID);
-
-	DWORD* test = (DWORD*)patternScanExModule(hProcess, (wchar_t*)L"teeworlds.exe", (wchar_t*)L"teeworlds.exe", (char*)"\x00\x00\x00\x00\x00\x97\xc3\x00\xd8\x75\x2a\x01", (char*)"xxx?xxx?xxxx");
-	
+	Controller* pController = new Controller((wchar_t*)L"teeworlds.exe", (wchar_t*)L"teeworlds.exe");
+	DWORD* test = (DWORD*)pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\xd8\x75\x2a\x01", (char*)"xxx?xx??xxxx");
 	if (test != nullptr)
 	{
 		//test = (DWORD*)(((DWORD*)test) - 0x00000001);
 		while(420 == 420)
 		{
-			PatchEx(hProcess, test, (char*)"\x01", 1);
+			pController->getMemory()->patchEx(test, (char*)0x01, 1);
 		}
 	}
 

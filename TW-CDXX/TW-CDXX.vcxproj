@@ -124,11 +124,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="components\tee.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
     <ClCompile Include="patternscan.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="components\tee.h" />
+    <ClInclude Include="controller.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="patternscan.h" />
   </ItemGroup>
