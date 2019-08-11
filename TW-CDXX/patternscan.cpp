@@ -1,8 +1,8 @@
 #include "patternscan.h"
 
-PatternScan::PatternScan(Memory* mem)
+PatternScan::PatternScan(Memory* pMem)
 {
-	m_pMemory = mem;
+	m_pMemory = pMem;
 }
 
 void* PatternScan::patternScan(char* base, size_t size, char* pattern, char* mask)

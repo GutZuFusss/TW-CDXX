@@ -6,7 +6,7 @@
 class PatternScan
 {
 public:
-	PatternScan(Memory* mem);
+	PatternScan(Memory* pMem);
 	void* patternScanEx(uintptr_t begin, uintptr_t end, char* pattern, char* mask);
 	void* patternScanExModule(char* pattern, char* mask);
 	
