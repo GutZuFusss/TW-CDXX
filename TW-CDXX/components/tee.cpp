@@ -1,4 +1,5 @@
 #include "tee.h"
+#include <stdio.h> //REMOVE
 
 Tee::Tee(Controller* pController)
 {
@@ -13,6 +14,9 @@ void Tee::tick()
 	//update local tee's info (might move this to another function some day
 	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
 	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
+
+	printf("X: %i        Y: %i\n", m_Pos.x, m_Pos.y);
+	jump();
 }
 
 void Tee::resetInput()
@@ -47,9 +51,10 @@ void Tee::setAddresses()
 	m_InputAddresses.m_DirLeft = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte)*1);
 	m_InputAddresses.m_DirRight = inputBaseAddr;
 
+	//might re-add pattern scanning for this once i unterstand it better
 	DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
-	m_PositionAddresses.m_X = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
-	m_PositionAddresses.m_Y = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);;
+	m_PositionAddresses.m_X = (DWORD*)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101108;//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
+	m_PositionAddresses.m_Y = (DWORD*)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101104;//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);
 }
 
 void Tee::setTarget(int x, int y)

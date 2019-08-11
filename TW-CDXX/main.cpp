@@ -8,8 +8,7 @@
 int main()
 {
 	Controller* pController = new Controller((wchar_t*)L"teeworlds.exe", (wchar_t*)L"teeworlds.exe");
-	
-	Tee* pTee = new Tee(pController);
+	pController->tick();
 
 	return  0;
 }

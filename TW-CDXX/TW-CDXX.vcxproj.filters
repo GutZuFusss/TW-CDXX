@@ -27,6 +27,9 @@
     <ClCompile Include="components\tee.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h">
