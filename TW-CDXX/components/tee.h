@@ -1,4 +1,5 @@
 #pragma once
+#include "../memory.h"
 
 class Tee
 {
@@ -33,6 +34,7 @@ private:
 		int m_DirRight;
 	};
 	//DWORD* test = (DWORD*)pController->getPatternScan()->patternScanExModule((char*)"\x00\x00\x00\x00\x00\x97\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", (char*)"xxxxxx?x????????????xxxxxxxx");
+	Memory* m_pMemory;
 public:
-	
+	Tee(Memory* pMem);
 };
