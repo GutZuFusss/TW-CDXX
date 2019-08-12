@@ -52,9 +52,9 @@ void Tee::setAddresses()
 	m_InputAddresses.m_DirRight = inputBaseAddr;
 
 	//might re-add pattern scanning for this once i unterstand it better
-	DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
-	m_PositionAddresses.m_X = (DWORD*)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101108;//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
-	m_PositionAddresses.m_Y = (DWORD*)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101104;//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);
+	//DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
+	m_PositionAddresses.m_X = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101108);//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
+	m_PositionAddresses.m_Y = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101104);//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);
 }
 
 void Tee::setTarget(int x, int y)
