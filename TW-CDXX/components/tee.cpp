@@ -61,6 +61,7 @@ void Tee::setAddresses()
 	m_InputAddresses.m_PlaceHolder3 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte) * 3);
 	m_InputAddresses.m_PlaceHolder4 = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte) * 2);
 	m_InputAddresses.m_DirLeft = (DWORD*)(((DWORD*)inputBaseAddr) - sizeof(byte) * 1);
+	m_InputAddresses.m_DirRight = inputBaseAddr;
 
 	//might re-add pattern scanning for this once i unterstand it better
 	//DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
