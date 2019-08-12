@@ -30,7 +30,7 @@ private:
 		int m_PlaceHolder4;
 		int m_DirLeft;
 		int m_DirRight;
-	};
+	} m_InputData;
 
 	struct InputAddresses
 	{
@@ -45,18 +45,13 @@ private:
 		DWORD* m_PlaceHolder4;
 		DWORD* m_DirLeft;
 		DWORD* m_DirRight;
-	};
+	} m_InputAddresses;
 
 	struct PositionAddresses
 	{
 		DWORD* m_X;
 		DWORD* m_Y;
-	};
-
-	InputData m_InputData;
-	InputAddresses m_InputAddresses;
-
-	PositionAddresses m_PositionAddresses;
+	} m_PositionAddresses;
 
 	void resetInput();
 	void setAddresses();
