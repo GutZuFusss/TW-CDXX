@@ -15,8 +15,8 @@ void Tee::tick()
 	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
 	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
 
-	printf("X: %i        Y: %i\n", m_Pos.x, m_Pos.y);
-	jump();
+
+	//printf("X: %i        Y: %i\n", m_Pos.x, m_Pos.y);
 }
 
 void Tee::resetInput()

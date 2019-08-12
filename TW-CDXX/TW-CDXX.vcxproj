@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="components\player.cpp" />
     <ClCompile Include="components\tee.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="patternscan.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="components\player.h" />
     <ClInclude Include="components\tee.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="memory.h" />

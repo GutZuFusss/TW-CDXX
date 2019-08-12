@@ -30,6 +30,9 @@
     <ClCompile Include="controller.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="components\player.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h">
@@ -42,6 +45,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="controller.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="components\player.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
