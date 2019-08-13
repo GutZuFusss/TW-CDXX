@@ -77,12 +77,12 @@ inline vector2_base<T> closest_point_on_line(vector2_base<T> line_point0, vector
 }
 
 //
-inline float length(const vector2_base<int>& a)
+inline float length(const vector2_base<float>& a)
 {
 	return sqrtf(a.x * a.x + a.y * a.y);
 }
 
-inline float length(const vector2_base<float>& a)
+inline float length(const vector2_base<int>& a)
 {
 	return sqrtf(a.x * a.x + a.y * a.y);
 }
