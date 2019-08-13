@@ -19,7 +19,6 @@ void Player::tick()
 void Player::setAddresses()
 {
 	DWORD* positionBaseAddr = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xff76ffe8);
-	DWORD* ttt = reinterpret_cast<DWORD*>(0x001A004C - (DWORD)positionBaseAddr);
-	m_PositionAddresses.m_X = positionBaseAddr + (m_ClientID * POSITION_ADDR_FACTOR);
-	m_PositionAddresses.m_Y = (DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1 + (m_ClientID * POSITION_ADDR_FACTOR));
+	m_PositionAddresses.m_X = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR));
+	m_PositionAddresses.m_Y = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * POSITION_ADDR_FACTOR) + sizeof(int) * 1);
 }
