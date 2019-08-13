@@ -26,8 +26,6 @@ void BalanceBot::balance()
 	ivec2 myPos = m_pController->getLocalTee()->m_Pos;
 	ivec2 targetPos = m_pController->getPlayer(id)->m_Pos;
 
-	printf("%i\n", distance(myPos, targetPos));
-
 	if(distance(myPos, targetPos) > BBOT_MAX_DIST)
 		return;
 
@@ -36,8 +34,6 @@ void BalanceBot::balance()
 		m_pController->getLocalTee()->move(WALK_STAND);
 		return;
 	}
-
-	printf("%i: %i    %i\n", id, myPos.x, targetPos.x);
 
 	if(myPos.x > targetPos.x)
 		m_pController->getLocalTee()->move(WALK_LEFT);
