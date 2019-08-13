@@ -49,6 +49,8 @@ int BalanceBot::getClosestID()
 	int closestID = -1;
 	for(int i = 0; i < MAX_CLIENTS; i++)
 	{
+		if(!m_pController->getPlayer(i)->isActive())
+			continue;
 		if(i == m_pController->getLocalTee()->m_LocalCID)
 			continue;
 
