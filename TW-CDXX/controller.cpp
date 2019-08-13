@@ -8,7 +8,6 @@ Controller::Controller(wchar_t* process, wchar_t* moduleName)
 	m_pPatternScan = new PatternScan(m_pMemory);
 
 	m_pTee = new Tee(this);
-
 	for(int i = 0; i < MAX_CLIENTS; i++)
 		m_apPlayers[i] = new Player(this, i);
 }
@@ -20,6 +19,7 @@ void Controller::tick()
 		m_pTee->tick();
 		for(int i = 0; i < MAX_CLIENTS; i++)
 			m_apPlayers[i]->tick();
+
 		std::this_thread::sleep_for(std::chrono::milliseconds(TICK_SPEED));
 	}
 };
