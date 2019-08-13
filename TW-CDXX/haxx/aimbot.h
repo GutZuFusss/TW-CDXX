@@ -17,4 +17,5 @@ private:
 	bool m_Active;
 
 	void aimBot();
+	int getClosestID();
 };
