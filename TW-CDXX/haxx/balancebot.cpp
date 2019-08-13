@@ -6,7 +6,7 @@
 BalanceBot::BalanceBot(Controller* pController)
 {
 	m_pController = pController;
-	m_Active = true;
+	m_Active = false;
 }
 
 void BalanceBot::tick()
