@@ -27,7 +27,11 @@ void BalanceBot::balance()
 	ivec2 targetPos = m_pController->getPlayer(id)->m_Pos;
 
 	if(distance(myPos, targetPos) > BBOT_MAX_DIST)
+	{
+		if(m_pController->getLocalTee()->moving())
+			m_pController->getLocalTee()->move(WALK_STAND);
 		return;
+	}
 
 	if(abs(myPos.x - targetPos.x) <= BBOT_XDIFF_TOLERANCE)
 	{

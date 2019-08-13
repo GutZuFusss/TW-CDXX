@@ -76,4 +76,6 @@ public:
 	void fireHook();
 	void releaseHook();
 	void move(int dir);
+
+	bool moving() { return (m_InputData.m_DirLeft || m_InputData.m_DirRight); };
 };
