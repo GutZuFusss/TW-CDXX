@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+constexpr auto PI = 3.14159265358979323846;
+
 //the vector stuff is taken from https://github.com/teeworlds/teeworlds/blob/master/src/base/vmath.h (credits to them)
 template<typename T>
 class vector2_base
@@ -41,7 +43,7 @@ public:
 template<typename T>
 inline vector2_base<T> rotate(const vector2_base<T>& a, float angle)
 {
-	angle = angle * pi / 180.0f;
+	angle = angle * PI / 180.0f;
 	float s = sinf(angle);
 	float c = cosf(angle);
 	return vector2_base<T>((T)(c * a.x - s * a.y), (T)(s * a.x + c * a.y));
