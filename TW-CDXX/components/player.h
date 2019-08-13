@@ -20,6 +20,7 @@ public:
 	int m_ActiveWeapon;
 
 	int getClientID() { return m_ClientID; };
+	bool isActive() { return m_Active; };
 
 private:
 	Controller* m_pController;
@@ -32,7 +33,10 @@ private:
 
 	DWORD* m_ActiveWeaponAddress;
 
+	DWORD* m_ActiveAddress;
+
 	void setAddresses();
 
 	int m_ClientID;
+	bool m_Active;
 };
