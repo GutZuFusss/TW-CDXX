@@ -7,6 +7,8 @@
 class Tee; //forward declaration to prevent circular includes
 class Player; //same thing here
 
+class BalanceBot;
+
 enum
 {
 	TICK_SPEED = 20,
@@ -18,13 +20,17 @@ class Controller
 public:
 	Controller(wchar_t* process, wchar_t* moduleName);
 
+	void tick();
+
 	Memory* getMemory() { return m_pMemory; };
 	PatternScan* getPatternScan() { return m_pPatternScan; };
 
+	//components
 	Tee* getLocalTee() { return m_pTee; };
 	Player* getPlayer(int id) { return m_apPlayers[id]; };
 
-	void tick();
+	//haxx
+	BalanceBot* getBalanceBot() { return m_pBalanceBot; };
 
 private:
 	Memory* m_pMemory;
@@ -33,4 +39,7 @@ private:
 	//components
 	Tee* m_pTee;
 	Player* m_apPlayers[MAX_CLIENTS];
+
+	//haxx
+	BalanceBot* m_pBalanceBot;
 };
