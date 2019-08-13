@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-// the vector stuff is taken from https://github.com/teeworlds/teeworlds/blob/master/src/base/vmath.h (credits to them)
+//the vector stuff is taken from https://github.com/teeworlds/teeworlds/blob/master/src/base/vmath.h (credits to them)
 template<typename T>
 class vector2_base
 {
