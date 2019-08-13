@@ -5,6 +5,7 @@
 #include "patternscan.h"
 
 class Tee; //forward declaration to prevent circular includes
+class Player; //same thing here
 
 enum
 {

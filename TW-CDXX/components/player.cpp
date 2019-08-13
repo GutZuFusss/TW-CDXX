@@ -13,12 +13,18 @@ void Player::tick()
 	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
 	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
 
-	printf("X: %i       Y: %i\n", m_Pos.x, m_Pos.y);
+	//printf("X: %i       Y: %i\n", m_Pos.x, m_Pos.y);
 }
 
 void Player::setAddresses()
 {
 	DWORD* positionBaseAddr = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xff76ffe8);
+	//001A002C
+	DWORD* ttt = reinterpret_cast<DWORD*>(0x001A004C - (DWORD)positionBaseAddr);
 	m_PositionAddresses.m_X = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR));
 	m_PositionAddresses.m_Y = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * POSITION_ADDR_FACTOR) + sizeof(int) * 1);
+
+	m_ActiveWeaponAddress = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR) + sizeof(int) * 17);
+	while(1)
+		printf("%i: %i\n", m_ClientID, (int)m_pController->getMemory()->readMemoryEx(m_ActiveWeaponAddress, sizeof(int)));
 }

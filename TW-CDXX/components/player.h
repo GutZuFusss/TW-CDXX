@@ -21,6 +21,8 @@ public:
 		int y;
 	} m_Pos;
 
+	int m_ActiveWeapon;
+
 	int getClientID() { return m_ClientID; };
 
 private:
@@ -31,6 +33,8 @@ private:
 		DWORD* m_X;
 		DWORD* m_Y;
 	} m_PositionAddresses;
+
+	DWORD* m_ActiveWeaponAddress;
 
 	void setAddresses();
 
