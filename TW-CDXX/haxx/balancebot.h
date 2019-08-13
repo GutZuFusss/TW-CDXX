@@ -2,6 +2,12 @@
 
 #include "../controller.h"
 
+enum
+{
+	BBOT_XDIFF_TOLERANCE = 5,
+	BBOT_MAX_DIST = 200
+};
+
 class BalanceBot
 {
 public:
@@ -15,4 +21,7 @@ private:
 	Controller* m_pController;
 
 	bool m_Active;
+
+	void balance();
+	int getClosestID();
 };
