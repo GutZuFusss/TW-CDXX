@@ -21,6 +21,7 @@ public:
 	PatternScan* getPatternScan() { return m_pPatternScan; };
 
 	Tee* getLocalTee() { return m_pTee; };
+	Player* getPlayer(int id) { return m_apPlayers[id]; };
 
 	void tick();
 
