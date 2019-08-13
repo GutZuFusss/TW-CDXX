@@ -14,9 +14,7 @@ void Tee::tick()
 	//update local tee's info (might move this to another function some day
 	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
 	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
-
-
-	//printf("X: %i        Y: %i\n", m_Pos.x, m_Pos.y);
+	m_LocalCID = (int)m_pController->getMemory()->readMemoryEx(m_LocalCIDAddress, sizeof(int));
 }
 
 void Tee::resetInput()
@@ -67,6 +65,8 @@ void Tee::setAddresses()
 	//DWORD* positionBaseAddr = (DWORD*)m_pController->getPatternScan()->patternScanExModule((char*)"\x18\x00\x00\x00\x58\xc3\xfd\x08\x00\x04\x00\x00", (char*)"?xxxxxxxxxxx");
 	m_PositionAddresses.m_X = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101108);//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 2);
 	m_PositionAddresses.m_Y = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0x101104);//(DWORD*)(((DWORD*)positionBaseAddr) - sizeof(byte) * 1);
+
+	m_LocalCIDAddress = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xffd3dda8);
 }
 
 void Tee::setTarget(int x, int y)

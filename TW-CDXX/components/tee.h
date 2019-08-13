@@ -53,6 +53,8 @@ private:
 		DWORD* m_Y;
 	} m_PositionAddresses;
 
+	DWORD* m_LocalCIDAddress;
+
 	void resetInput();
 	void setAddresses();
 
@@ -67,6 +69,8 @@ public:
 		int x;
 		int y;
 	} m_Pos;
+
+	int m_LocalCID;
 	
 	void setTarget(int x, int y);
 	void jump();
