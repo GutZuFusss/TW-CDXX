@@ -1,5 +1,4 @@
 #include "tee.h"
-#include <stdio.h> //REMOVE
 
 Tee::Tee(Controller* pController)
 {
@@ -11,7 +10,7 @@ Tee::Tee(Controller* pController)
 
 void Tee::tick()
 {
-	//update local tee's info (might move this to another function some day
+	//update local tee's info (might move this to another function some day)
 	m_Pos.x = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_X, sizeof(int));
 	m_Pos.y = (int)m_pController->getMemory()->readMemoryEx(m_PositionAddresses.m_Y, sizeof(int));
 	m_LocalCID = (int)m_pController->getMemory()->readMemoryEx(m_LocalCIDAddress, sizeof(int));
@@ -19,7 +18,7 @@ void Tee::tick()
 
 void Tee::resetInput()
 {
-	m_InputData.m_TargetX = 1; // aiming to the exact center is not allowed
+	m_InputData.m_TargetX = 1; //aiming to the exact center is not allowed
 	m_InputData.m_TargetY = 0;
 	m_InputData.m_Jump = 0;
 	if((m_InputData.m_Fire & 1) != 0)
@@ -28,7 +27,7 @@ void Tee::resetInput()
 	m_InputData.m_Hook = 0;
 	m_InputData.m_PlaceHolder1 = 0;
 	m_InputData.m_PlaceHolder2 = 0;
-	m_InputData.m_PlaceHolder3 = 0;
+	m_InputData.m_PlaceHolder3 = 0;	
 	m_InputData.m_PlaceHolder4 = 0;
 	m_InputData.m_DirLeft = 0;
 	m_InputData.m_DirRight = 0;
