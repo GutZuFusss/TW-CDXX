@@ -139,6 +139,7 @@
     <ClInclude Include="haxx\balancebot.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="patternscan.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

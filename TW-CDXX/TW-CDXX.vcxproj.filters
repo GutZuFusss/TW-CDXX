@@ -56,5 +56,8 @@
     <ClInclude Include="haxx\balancebot.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 #pragma once
+
+#include "../util.h"
 #include "../controller.h"
 #include "../memory.h"
 
@@ -64,11 +66,7 @@ public:
 
 	void tick();
 
-	struct Position
-	{
-		int x;
-		int y;
-	} m_Pos;
+	ivec2 m_Pos;
 
 	int m_LocalCID;
 	
