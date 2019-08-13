@@ -4,8 +4,8 @@
 
 enum
 {
-	BBOT_XDIFF_TOLERANCE = 5,
-	BBOT_MAX_DIST = 200
+	BBOT_XDIFF_TOLERANCE = 12,
+	BBOT_MAX_DIST = 220
 };
 
 class BalanceBot
