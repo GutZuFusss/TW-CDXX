@@ -8,7 +8,8 @@ class Tee; //forward declaration to prevent circular includes
 
 enum
 {
-	TICK_SPEED = 20
+	TICK_SPEED = 20,
+	MAX_CLIENTS = 64
 };
 
 class Controller
@@ -29,4 +30,5 @@ private:
 	
 	//components
 	Tee* m_pTee;
+	Player* m_apPlayers[MAX_CLIENTS];
 };
