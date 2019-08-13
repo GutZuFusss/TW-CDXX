@@ -2,6 +2,7 @@
 #include "components/tee.h"
 #include "components/player.h"
 #include "haxx/balancebot.h"
+#include "haxx/aimbot.h"
 
 Controller::Controller(wchar_t* process, wchar_t* moduleName)
 {
@@ -15,6 +16,7 @@ Controller::Controller(wchar_t* process, wchar_t* moduleName)
 
 	//haxx
 	m_pBalanceBot = new BalanceBot(this);
+	m_pAimBot = new AimBot(this);
 }
 
 void Controller::tick()
@@ -28,6 +30,7 @@ void Controller::tick()
 
 		//haxx ticks
 		m_pBalanceBot->tick();
+		m_pAimBot->tick();
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(TICK_SPEED));
 	}

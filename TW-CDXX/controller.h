@@ -7,7 +7,8 @@
 class Tee; //forward declaration to prevent circular includes
 class Player; //same thing here
 
-class BalanceBot;
+class BalanceBot; //you get the drill
+class AimBot;
 
 enum
 {
@@ -31,6 +32,7 @@ public:
 
 	//haxx
 	BalanceBot* getBalanceBot() { return m_pBalanceBot; };
+	AimBot* getAimBot() { return m_pAimBot; };
 
 private:
 	Memory* m_pMemory;
@@ -42,4 +44,5 @@ private:
 
 	//haxx
 	BalanceBot* m_pBalanceBot;
+	AimBot* m_pAimBot;
 };
