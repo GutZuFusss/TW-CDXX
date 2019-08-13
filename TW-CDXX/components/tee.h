@@ -70,7 +70,7 @@ public:
 
 	int m_LocalCID;
 	
-	void setTarget(int x, int y);
+	void setTarget(ivec2 to);
 	void jump();
 	void fire();
 	void fireHook();

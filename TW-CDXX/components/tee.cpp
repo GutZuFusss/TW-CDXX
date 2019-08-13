@@ -68,10 +68,10 @@ void Tee::setAddresses()
 	m_LocalCIDAddress = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xffd3dda8);
 }
 
-void Tee::setTarget(int x, int y)
+void Tee::setTarget(ivec2 to)
 {
-	m_InputData.m_TargetX = x;
-	m_InputData.m_TargetY = y;
+	m_InputData.m_TargetX = to.x;
+	m_InputData.m_TargetY = to.y;
 	m_pController->getMemory()->patchEx(m_InputAddresses.m_TargetX, &m_InputData.m_TargetX, sizeof(int));
 	m_pController->getMemory()->patchEx(m_InputAddresses.m_TargetY, &m_InputData.m_TargetY, sizeof(int));
 }
