@@ -20,11 +20,11 @@ void Player::tick()
 
 void Player::setAddresses()
 {
-	DWORD* positionBaseAddr = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xff76ffe8);
+	DWORD* positionBaseAddr = reinterpret_cast<DWORD*>((DWORD)m_pController->getMemory()->getModuleEntry()->modBaseAddr + 0xffd302b0);
 	m_PositionAddresses.m_X = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR));
 	m_PositionAddresses.m_Y = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * POSITION_ADDR_FACTOR) + sizeof(int) * 1);
 
-	m_ActiveAddress = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR) + 0x005c02c0); //sry 4 teh hardcore man
+	m_ActiveAddress = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR) + 0xfffffff8); //sry 4 teh hardcore man
 
 	m_ActiveWeaponAddress = reinterpret_cast<DWORD*>((DWORD)positionBaseAddr + (m_ClientID * (DWORD)POSITION_ADDR_FACTOR) + sizeof(int) * 17);
 }
